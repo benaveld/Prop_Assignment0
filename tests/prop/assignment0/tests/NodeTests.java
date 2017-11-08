@@ -1,3 +1,4 @@
+//Benjamin Avery, Email: Benaveld@gmail.com
 package prop.assignment0.tests;
 
 import org.junit.Test;

@@ -1,3 +1,4 @@
+//Benjamin Avery, Email: Benavled
 package prop.assignment0.src.node;
 
 import prop.assignment0.INode;
@@ -5,6 +6,7 @@ import prop.assignment0.ITokenizer;
 import prop.assignment0.Lexeme;
 import prop.assignment0.ParserException;
 import prop.assignment0.TokenizerException;
+import prop.assignment0.src.Varible;
 
 import static prop.assignment0.Token.*;
 import static prop.assignment0.src.Util.*;
@@ -37,8 +39,7 @@ public class AssignmentNode implements INode {
 	
 	@Override
 	public Object evaluate(Object[] args) throws Exception {
-		
-		return null;
+		return new Varible((String) id.value(), (double) expNode.evaluate(args));
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class AssignmentNode implements INode {
 		addTabs(builder, tabs + 1);
 		builder.append(assignOp.toString() + '\n');
 		expNode.buildString(builder, tabs + 1);
+		addTabs(builder, tabs + 1);
 		builder.append(semicolon.toString() + '\n');
 	}
 
