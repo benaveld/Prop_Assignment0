@@ -6,6 +6,7 @@ import java.io.IOException;
 import prop.assignment0.INode;
 import prop.assignment0.ITokenizer;
 import prop.assignment0.ParserException;
+import prop.assignment0.Token;
 import prop.assignment0.TokenizerException;
 import prop.assignment0.src.Varible;
 
@@ -15,19 +16,16 @@ public class StatementsNode implements INode {
 	private INode assNode = null;
 	private INode statNode = null;
 
-	public StatementsNode(ITokenizer tokenizer) throws IOException, TokenizerException {
-		try {
+	public StatementsNode(ITokenizer tokenizer) throws IOException, TokenizerException, ParserException {
+		if (tokenizer.current().token() != Token.RIGHT_CURLY) {
 			assNode = new AssignmentNode(tokenizer);
 			statNode = new StatementsNode(tokenizer);
-		} catch (ParserException e) {
-			assNode = null;
-			statNode = null;
 		}
 	}
 
 	@Override
 	public Object evaluate(Object[] args) throws Exception {
-		if(assNode != null) {
+		if (assNode != null) {
 			Varible v = (Varible) assNode.evaluate(args);
 			Object[] newArgs;
 			if (args == null) {

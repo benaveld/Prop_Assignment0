@@ -1,21 +1,22 @@
 //Benjamin Avery, Email: Benaveld@gmail.com
 package prop.assignment0.src.node;
 
+import static prop.assignment0.Token.DIV_OP;
+import static prop.assignment0.Token.MULT_OP;
+import static prop.assignment0.src.Util.addTabs;
+
+import java.io.IOException;
+
 import prop.assignment0.INode;
 import prop.assignment0.ITokenizer;
 import prop.assignment0.Lexeme;
 import prop.assignment0.ParserException;
 import prop.assignment0.TokenizerException;
 
-import static prop.assignment0.Token.*;
-import static prop.assignment0.src.Util.*;
-
-import java.io.IOException;
-
 public class TermNode implements INode {
 	private INode facNode = null;
 	private Lexeme op = null;
-	private INode termNode = null;
+	private TermNode termNode = null;
 	
 	public TermNode(ITokenizer tokenizer) throws ParserException, IOException, TokenizerException {
 		facNode = new FactorNode(tokenizer);
@@ -23,21 +24,24 @@ public class TermNode implements INode {
 		Lexeme token = tokenizer.current();
 		if(token.token() == MULT_OP || token.token() == DIV_OP) {
 			op = token;
-			tokenizer.moveNext();
+			tokenizer.moveNext();			
 			termNode = new TermNode(tokenizer);
 		}
 	}
 	
 	@Override
 	public Object evaluate(Object[] args) throws Exception {
-		double a = (double) facNode.evaluate(args);
+		return evaluate(args, (double) facNode.evaluate(args));
+	}
+	
+	private Object evaluate(Object[] args, double value) throws Exception {
 		if(op == null) {
-			return a;
+			return value;
 		} else {
 			if(op.token() == MULT_OP) {
-				return a * (double) termNode.evaluate(args);
+				return termNode.evaluate(args, value * (double) termNode.facNode.evaluate(args));
 			} else if(op.token() == DIV_OP) {
-				return a / (double) termNode.evaluate(args);
+				return termNode.evaluate(args, value / (double) termNode.facNode.evaluate(args));
 			} else {
 				throw new Exception();
 			}

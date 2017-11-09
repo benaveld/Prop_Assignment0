@@ -7,7 +7,7 @@ public class Varible {
 	
 	public Varible(String name, double value) {
 		this.name = name;
-		this.value = value;
+		this.value = Math.round(value*100d) / 100d;
 	}
 
 	@Override

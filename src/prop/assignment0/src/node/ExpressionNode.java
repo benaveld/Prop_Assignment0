@@ -29,14 +29,18 @@ public class ExpressionNode implements INode {
 	
 	@Override
 	public Object evaluate(Object[] args) throws Exception {
-		double a = (double) termNode.evaluate(args);
+		return evaluate(args, (double) termNode.evaluate(args));
+	}
+
+	private Object evaluate(Object[] args, double value) throws Exception {
 		if(op == null) {
-			return a;
+			return value;
 		} else {
 			if(op.token() == ADD_OP) {
-				return a + (double) expNode.evaluate(args);
+				return expNode.evaluate(args, value + (double) expNode.termNode.evaluate(args));
 			} else {
-				return a - (double) expNode.evaluate(args);
+				//System.out.println(value - (double) expNode.termNode.evaluate(args));
+				return expNode.evaluate(args, value - (double) expNode.termNode.evaluate(args));
 			}
 		}
 	}
