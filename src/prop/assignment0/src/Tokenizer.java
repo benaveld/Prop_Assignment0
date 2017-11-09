@@ -12,10 +12,14 @@ public class Tokenizer implements ITokenizer {
 	private Lexeme currentValue;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private final boolean grammer2 = true;
 =======
 	private final boolean grammar2 = false;
 >>>>>>> 72f8e016def3c11220c56b38efebd341fa908260
+=======
+	private final boolean grammer2 = false;
+>>>>>>> parent of 72f8e01... Rättade några stavfel
 
 	@Override
 	public void open(String fileName) throws IOException, TokenizerException {
@@ -52,10 +56,14 @@ public class Tokenizer implements ITokenizer {
 =======
 		} 
 		
+<<<<<<< HEAD
 		if (c == '{' && grammar2) {
 >>>>>>> 72f8e016def3c11220c56b38efebd341fa908260
+=======
+		if (c == '{' && grammer2) {
+>>>>>>> parent of 72f8e01... Rättade några stavfel
 			token = LEFT_CURLY;
-		} else if (c == '}' && grammar2) {
+		} else if (c == '}' && grammer2) {
 			token = RIGHT_CURLY;
 		} else {
 			switch (c) {
