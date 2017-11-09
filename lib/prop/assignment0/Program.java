@@ -1,12 +1,13 @@
 package prop.assignment0;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import prop.assignment0.src.Parser;
 
 public class Program {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		String inputFileName = null;
 		String outputFileName = null;
 		IParser parser = null;

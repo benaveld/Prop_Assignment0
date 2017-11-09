@@ -11,7 +11,7 @@ public class Tokenizer implements ITokenizer {
 	private IScanner scanner = new Scanner();
 	private Lexeme currentValue;
 
-	private final boolean grammer2 = false;
+	private final boolean grammer2 = true;
 
 	@Override
 	public void open(String fileName) throws IOException, TokenizerException {
@@ -28,7 +28,7 @@ public class Tokenizer implements ITokenizer {
 	public void moveNext() throws IOException, TokenizerException {
 		char c = scanner.current();
 		Token token = null;
-		
+
 		// Skips whitespace and new line
 		while (isSkipt(c)) {
 			scanner.moveNext();
@@ -41,8 +41,8 @@ public class Tokenizer implements ITokenizer {
 		} else if (c >= '0' && c <= '9') {
 			currentValue = new Lexeme(Double.parseDouble(getWord('0', '9')), INT_LIT);
 			return;
-		} 
-		
+		}
+
 		if (c == '{' && grammer2) {
 			token = LEFT_CURLY;
 		} else if (c == '}' && grammer2) {
@@ -56,12 +56,15 @@ public class Tokenizer implements ITokenizer {
 			case '=':
 				token = ASSIGN_OP;
 				break;
+
 			case '+':
 				token = ADD_OP;
 				break;
+
 			case '-':
 				token = SUB_OP;
 				break;
+
 			case '*':
 				token = MULT_OP;
 				break;
@@ -85,25 +88,25 @@ public class Tokenizer implements ITokenizer {
 			default:
 				throw new TokenizerException("Char: \"" + c + "\" is not in the Tokenizer.");
 			}
-			currentValue = new Lexeme(c, token);
-			scanner.moveNext();
 		}
+		currentValue = new Lexeme(c, token);
+		scanner.moveNext();
 	}
 
 	private boolean isSkipt(char c) {
 		return c == ' ' || c == 0x0A || c == 0x0D || c == 0x0;
 	}
-	
+
 	private String getWord(char start, char end) throws IOException {
 		StringBuilder str = new StringBuilder(1);
 		char c = scanner.current();
-		
+
 		while (!isSkipt(c) && c >= start && c <= end) {
 			str.append(c);
 			scanner.moveNext();
 			c = scanner.current();
 		}
-		
+
 		return str.toString();
 	}
 

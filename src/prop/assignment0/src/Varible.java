@@ -13,13 +13,14 @@ public class Varible {
 	@Override
 	public String toString() {
 		return name + " = " + value;
+		
 	}
 	
-	public String getName() {
+	public String name() {
 		return name;
 	}
 
-	public double getValue() {
+	public double value() {
 		return value;
 	}
 }

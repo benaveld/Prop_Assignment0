@@ -1,17 +1,19 @@
 //Benjamin Avery, Email: Benavled
 package prop.assignment0.src.node;
 
+import static prop.assignment0.Token.ASSIGN_OP;
+import static prop.assignment0.Token.IDENT;
+import static prop.assignment0.Token.SEMICOLON;
+import static prop.assignment0.src.Util.addTabs;
+
+import java.io.IOException;
+
 import prop.assignment0.INode;
 import prop.assignment0.ITokenizer;
 import prop.assignment0.Lexeme;
 import prop.assignment0.ParserException;
 import prop.assignment0.TokenizerException;
 import prop.assignment0.src.Varible;
-
-import static prop.assignment0.Token.*;
-import static prop.assignment0.src.Util.*;
-
-import java.io.IOException;
 
 public class AssignmentNode implements INode {
 	private Lexeme id, assignOp, semicolon;

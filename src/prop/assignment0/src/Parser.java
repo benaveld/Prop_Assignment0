@@ -9,7 +9,7 @@ import prop.assignment0.ITokenizer;
 import prop.assignment0.ParserException;
 import prop.assignment0.Token;
 import prop.assignment0.TokenizerException;
-import prop.assignment0.src.node.AssignmentNode;
+import prop.assignment0.src.node.BlockNode;
 
 public class Parser implements IParser {
 	private ITokenizer tokenizer = new Tokenizer();
@@ -22,7 +22,7 @@ public class Parser implements IParser {
 	@Override
 	public INode parse() throws IOException, TokenizerException, ParserException {
 		tokenizer.moveNext();
-		INode result = new AssignmentNode(tokenizer);
+		INode result = new BlockNode(tokenizer);
 		if(tokenizer.current().token() != Token.EOF) {
 			throw new ParserException("End of file not reathed.");
 		}

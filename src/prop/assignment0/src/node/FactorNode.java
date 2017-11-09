@@ -6,6 +6,7 @@ import prop.assignment0.ITokenizer;
 import prop.assignment0.Lexeme;
 import prop.assignment0.ParserException;
 import prop.assignment0.TokenizerException;
+import prop.assignment0.src.Varible;
 
 import static prop.assignment0.Token.*;
 import static prop.assignment0.src.Util.*;
@@ -13,7 +14,7 @@ import static prop.assignment0.src.Util.*;
 import java.io.IOException;
 
 public class FactorNode implements INode {
-	private Lexeme num = null, leftParen = null, rightParen = null;;
+	private Lexeme num = null, name = null, leftParen = null, rightParen = null;;
 	private ExpressionNode expNode = null;
 
 	public FactorNode(ITokenizer tokenizer) throws ParserException, IOException, TokenizerException {
@@ -21,6 +22,8 @@ public class FactorNode implements INode {
 
 		if (token.token() == INT_LIT) {
 			num = token;
+		} else if (token.token() == IDENT) {
+			name = token;
 		} else if (token.token() == LEFT_PAREN) {
 			leftParen = token;
 			tokenizer.moveNext();
@@ -38,8 +41,15 @@ public class FactorNode implements INode {
 
 	@Override
 	public Object evaluate(Object[] args) throws Exception {
-		if(num != null) {
+		if (num != null) {
 			return num.value();
+		} else if (name != null) {
+			int index = indexOf(args, name);
+			if(index == -1) {
+				return 0d;
+			} else {
+				return ((Varible) args[index]).value();
+			}
 		} else {
 			return expNode.evaluate(args);
 		}
@@ -49,12 +59,12 @@ public class FactorNode implements INode {
 	public void buildString(StringBuilder builder, int tabs) {
 		addTabs(builder, tabs);
 		builder.append("FactorNode\n");
-
+		addTabs(builder, tabs + 1);
 		if (num != null) {
-			addTabs(builder, tabs + 1);
 			builder.append(num.toString() + '\n');
+		} else if (name != null) {
+			builder.append(name.toString() + '\n');
 		} else {
-			addTabs(builder, tabs + 1);
 			builder.append(leftParen.toString() + '\n');
 			expNode.buildString(builder, tabs + 1);
 			addTabs(builder, tabs + 1);
