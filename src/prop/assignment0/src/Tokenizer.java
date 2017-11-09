@@ -11,7 +11,11 @@ public class Tokenizer implements ITokenizer {
 	private IScanner scanner = new Scanner();
 	private Lexeme currentValue;
 
+<<<<<<< HEAD
 	private final boolean grammer2 = true;
+=======
+	private final boolean grammar2 = false;
+>>>>>>> 72f8e016def3c11220c56b38efebd341fa908260
 
 	@Override
 	public void open(String fileName) throws IOException, TokenizerException {
@@ -41,11 +45,17 @@ public class Tokenizer implements ITokenizer {
 		} else if (c >= '0' && c <= '9') {
 			currentValue = new Lexeme(Double.parseDouble(getWord('0', '9')), INT_LIT);
 			return;
+<<<<<<< HEAD
 		}
 
 		if (c == '{' && grammer2) {
+=======
+		} 
+		
+		if (c == '{' && grammar2) {
+>>>>>>> 72f8e016def3c11220c56b38efebd341fa908260
 			token = LEFT_CURLY;
-		} else if (c == '}' && grammer2) {
+		} else if (c == '}' && grammar2) {
 			token = RIGHT_CURLY;
 		} else {
 			switch (c) {
